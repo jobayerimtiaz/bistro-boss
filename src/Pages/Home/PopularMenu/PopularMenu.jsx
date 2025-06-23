@@ -25,6 +25,11 @@ const PopularMenu = () => {
           <MenuItems key={item._id} item={item}></MenuItems>
         ))}
       </div>
+      <div className="w-3/4 mx-auto flex justify-center items-center py-5">
+        <button className="border-0 border-black border-b-4 text-black px-6 py-2 rounded hover:bg-black hover:text-white transition duration-300">
+          VIEW FULL MENU
+        </button>
+      </div>
     </div>
   );
 };
