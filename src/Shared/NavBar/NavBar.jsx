@@ -4,7 +4,7 @@ import { FaShoppingCart } from "react-icons/fa";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="w-full fixed z-50 bg-transparent text-white">
+    <nav className="w-full fixed  z-50 bg-transparent text-white">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-bold">
