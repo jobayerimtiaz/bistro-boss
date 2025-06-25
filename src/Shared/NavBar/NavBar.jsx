@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <nav className="w-full fixed  z-50 bg-transparent text-white">
+    <nav className="w-full fixed  z-50 bg-black/30 text-white">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-bold">
@@ -51,9 +52,9 @@ const NavBar = () => {
         >
           <ul className="md:flex items-center gap-6 py-4 md:py-0">
             <li>
-              <a href="#" className="hover:text-yellow-400">
+              <NavLink to="/" className="hover:text-yellow-400">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li>
               <a href="#" className="hover:text-yellow-400">
@@ -66,9 +67,9 @@ const NavBar = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-yellow-400">
+              <NavLink to="/menu" className="hover:text-yellow-400">
                 Our Menu
-              </a>
+              </NavLink>
             </li>
             <li>
               <a href="#" className="hover:text-yellow-400">
