@@ -72,9 +72,9 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li>
-              <a href="#" className="hover:text-yellow-400">
+              <NavLink to="/order" className="hover:text-yellow-400">
                 Our Shop
-              </a>
+              </NavLink>
             </li>
             <li>
               <a

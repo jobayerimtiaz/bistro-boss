@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import Cover from "../../../Shared/Cover/Cover";
 import menuBanner from "../../../assets/menu/banner3.jpg";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
-import PopularMenu from "../../Home/PopularMenu/PopularMenu";
 import UseMenu from "../../../Hooks/UseMenu";
 import MenuCategory from "./MenuCategory/MenuCategory";
 import dessertBg from "../../../assets/menu/dessert-bg.jpeg";

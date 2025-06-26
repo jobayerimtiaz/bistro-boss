@@ -1,5 +1,3 @@
-import React from "react";
-
 const RecommendsItem = ({ item }) => {
   const { image, name, recipe } = item;
   return (
