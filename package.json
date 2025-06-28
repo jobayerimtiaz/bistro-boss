@@ -19,6 +19,7 @@
     "react-parallax": "^3.5.2",
     "react-rating": "^2.0.5",
     "react-router-dom": "^7.6.2",
+    "react-simple-captcha": "^9.3.1",
     "swiper": "^11.2.8",
     "tailwindcss": "^4.1.10"
   },
