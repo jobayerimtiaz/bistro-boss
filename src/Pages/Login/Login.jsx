@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import {
   loadCaptchaEnginge,
@@ -6,12 +6,16 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import Swal from "sweetalert2";
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const { signIn } = useContext(AuthContext);
-  const captchaRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -26,11 +30,21 @@ const Login = () => {
     signIn(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+      Swal.fire({
+        title: "Login Successful!",
+        text: "Welcome back 🎉",
+        icon: "success",
+        confirmButtonText: "Continue",
+        timer: 2000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+      navigate(from, { replace: true });
     });
   };
 
-  const handleValidateCaptcha = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value)) {
       setDisabled(false);
     } else {
@@ -81,7 +95,7 @@ const Login = () => {
             <div className="mb-6">
               <input
                 type="text"
-                ref={captchaRef}
+                onBlur={handleValidateCaptcha}
                 placeholder="Type here"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
                 name="Captcha"
@@ -89,14 +103,14 @@ const Login = () => {
               />
             </div>
 
-            <div className="flex items-center mb-6">
+            {/* <div className="flex items-center mb-6">
               <button
                 onClick={handleValidateCaptcha}
                 className="btn btn-outline"
               >
                 Validate
               </button>
-            </div>
+            </div> */}
 
             <button
               type="submit"

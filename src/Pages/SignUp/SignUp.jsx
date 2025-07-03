@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 const SignUp = () => {
   const {
     register,
@@ -13,15 +14,30 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
+      updateUserProfile(data.name, data.photoUrl).then(() => {
+        console.log("User profile updated");
+        reset();
+        Swal.fire({
+          title: "User Created Successfully!",
+          text: "Welcome 🎉",
+          icon: "success",
+          confirmButtonText: "Continue",
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+        navigate("/");
+      });
     });
-    reset();
   };
 
   return (
@@ -50,6 +66,19 @@ const SignUp = () => {
               />
               {errors.name && (
                 <span className="text-red-500 py-2">Name is required</span>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 mb-2">Photo URL</label>
+              <input
+                type="text"
+                {...register("photoUrl", { required: true })}
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
+                name="photoUrl"
+              />
+              {errors.photoUrl && (
+                <span className="text-red-500 py-2">Photo URL is required</span>
               )}
             </div>
 

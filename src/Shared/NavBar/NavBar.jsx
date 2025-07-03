@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <nav className="w-full fixed  z-50 bg-black/30 text-white">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -77,19 +86,39 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li>
-              <a
+              <NavLink className="bg-transparent text-white border-none hover:text-yellow-400 flex items-center justify-center gap-1">
+                <FaShoppingCart />{" "}
+                <div className="badge badge-sm badge-secondary">+0</div>
+              </NavLink>
+              {/* <a
                 href="#"
                 className="hover:text-yellow-400 flex items-center justify-center gap-1"
               >
                 <FaShoppingCart />
                 Cart
-              </a>
+              </a> */}
             </li>
-            <li>
-              <NavLink to="/login" className="hover:text-yellow-400">
-                Sign In
-              </NavLink>
-            </li>
+
+            {user ? (
+              <>
+                <li>
+                  <button
+                    onClick={handleLogOut}
+                    className="btn btn-ghost hover:text-yellow-400"
+                  >
+                    Sign Out
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink to="/login" className="hover:text-yellow-400">
+                    Sign In
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
