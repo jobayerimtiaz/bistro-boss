@@ -2,10 +2,12 @@ import { useContext, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import UseCart from "../../Hooks/UseCart";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = UseCart();
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -88,7 +90,9 @@ const NavBar = () => {
             <li>
               <NavLink className="bg-transparent text-white border-none hover:text-yellow-400 flex items-center justify-center gap-1">
                 <FaShoppingCart />{" "}
-                <div className="badge badge-sm badge-secondary">+0</div>
+                <div className="badge badge-sm badge-secondary">
+                  +{cart.length}
+                </div>
               </NavLink>
               {/* <a
                 href="#"
