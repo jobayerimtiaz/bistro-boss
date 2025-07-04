@@ -88,7 +88,10 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink className="bg-transparent text-white border-none hover:text-yellow-400 flex items-center justify-center gap-1">
+              <NavLink
+                to="/dashboard/cart"
+                className="bg-transparent text-white border-none hover:text-yellow-400 flex items-center justify-center gap-1"
+              >
                 <FaShoppingCart />{" "}
                 <div className="badge badge-sm badge-secondary">
                   +{cart.length}
