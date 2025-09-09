@@ -2,10 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
+import SocialButton from "../../Components/SocialButton/SocialButton";
 const SignUp = () => {
   const {
     register,
@@ -15,7 +16,7 @@ const SignUp = () => {
   } = useForm();
 
   const { createUser, updateUserProfile } = useContext(AuthContext);
-
+  const axiosPublic = UseAxiosPublic();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
@@ -24,27 +25,32 @@ const SignUp = () => {
       const loggedUser = result.user;
       console.log(loggedUser);
       updateUserProfile(data.name, data.photoUrl).then(() => {
-        console.log("User profile updated");
-        reset();
-        Swal.fire({
-          title: "User Created Successfully!",
-          text: "Welcome 🎉",
-          icon: "success",
-          confirmButtonText: "Continue",
-          timer: 2000,
-          timerProgressBar: true,
-          showConfirmButton: false,
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            console.log("User added to the database");
+            reset();
+            Swal.fire({
+              title: "User Created Successfully!",
+              text: "Welcome 🎉",
+              icon: "success",
+              confirmButtonText: "Continue",
+              timer: 2000,
+              timerProgressBar: true,
+              showConfirmButton: false,
+            });
+            navigate("/");
+          }
         });
-        navigate("/");
       });
     });
   };
 
   return (
     <>
-      <Helmet>
-        <title>Bistro Boss | Sign Up</title>
-      </Helmet>
       <div>
         <div></div>
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -125,27 +131,6 @@ const SignUp = () => {
               )}
             </div>
 
-            {/* <div className="mb-6">
-            <LoadCanvasTemplate />
-          </div> */}
-
-            {/* <div className="mb-6">
-            <input
-              type="text"
-              ref={captchaRef}
-              placeholder="Type here"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-400"
-              name="Captcha"
-              required
-            />
-          </div> */}
-
-            {/* <div className="flex items-center mb-6">
-            <button onClick={handleValidateCaptcha} className="btn btn-outline">
-              Validate
-            </button>
-          </div> */}
-
             <button
               type="submit"
               className="w-full bg-[#D1A054B3] text-white py-2 rounded-md hover:bg-gray-400 transition duration-300"
@@ -169,31 +154,7 @@ const SignUp = () => {
             </div>
 
             {/* Social Icons */}
-            <div className="flex justify-center space-x-4">
-              {/* Facebook */}
-              <button
-                type="button"
-                className="w-10 h-10 flex items-center justify-center rounded-full border text-blue-600 hover:bg-blue-100 transition"
-              >
-                <FaFacebookF />
-              </button>
-
-              {/* Google */}
-              <button
-                type="button"
-                className="w-10 h-10 flex items-center justify-center rounded-full border text-red-500 hover:bg-red-100 transition"
-              >
-                <FaGoogle />
-              </button>
-
-              {/* GitHub */}
-              <button
-                type="button"
-                className="w-10 h-10 flex items-center justify-center rounded-full border text-gray-800 hover:bg-gray-200 transition"
-              >
-                <FaGithub />
-              </button>
-            </div>
+            <SocialButton></SocialButton>
           </form>
         </div>
       </div>

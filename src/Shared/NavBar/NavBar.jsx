@@ -73,9 +73,9 @@ const NavBar = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-yellow-400">
+              <NavLink to="/dashboard" className="hover:text-yellow-400">
                 Dashboard
-              </a>
+              </NavLink>
             </li>
             <li>
               <NavLink to="/menu" className="hover:text-yellow-400">

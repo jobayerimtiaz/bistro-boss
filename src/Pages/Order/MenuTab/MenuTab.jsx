@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import UseMenu from "../../../Hooks/UseMenu";
 import OrderTab from "../OrderTab/OrderTab";
 import { useNavigate, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 
 const MenuTab = () => {
   const [menu] = UseMenu();
@@ -31,9 +30,6 @@ const MenuTab = () => {
   return (
     <div className="w-full my-14 mx-auto">
       {/* Tab Header */}
-      <Helmet>
-        <title>Bistro Boss | Order</title>
-      </Helmet>
       <div className="md:w-2/4 w-11/12 mx-auto flex">
         {tabs.map((tab) => (
           <button

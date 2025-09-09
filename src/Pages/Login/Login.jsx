@@ -7,8 +7,9 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+
 import Swal from "sweetalert2";
+import SocialButton from "../../Components/SocialButton/SocialButton";
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const { signIn } = useContext(AuthContext);
@@ -54,9 +55,6 @@ const Login = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Bistro Boss | Sign In</title>
-      </Helmet>
       <div>
         <div></div>
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -138,31 +136,7 @@ const Login = () => {
             </div>
 
             {/* Social Icons */}
-            <div className="flex justify-center space-x-4">
-              {/* Facebook */}
-              <button
-                type="button"
-                className="w-10 h-10 flex items-center justify-center rounded-full border text-blue-600 hover:bg-blue-100 transition"
-              >
-                <FaFacebookF />
-              </button>
-
-              {/* Google */}
-              <button
-                type="button"
-                className="w-10 h-10 flex items-center justify-center rounded-full border text-red-500 hover:bg-red-100 transition"
-              >
-                <FaGoogle />
-              </button>
-
-              {/* GitHub */}
-              <button
-                type="button"
-                className="w-10 h-10 flex items-center justify-center rounded-full border text-gray-800 hover:bg-gray-200 transition"
-              >
-                <FaGithub />
-              </button>
-            </div>
+            <SocialButton></SocialButton>
           </form>
         </div>
       </div>
