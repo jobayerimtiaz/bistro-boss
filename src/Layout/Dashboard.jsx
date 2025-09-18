@@ -13,10 +13,13 @@ import {
 } from "react-icons/fa";
 import UseCart from "../Hooks/UseCart";
 import { useState } from "react";
+import UseAdmin from "../Hooks/UseAdmin";
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cart] = UseCart();
-  const isAdmin = true;
+  const [isAdmin] = UseAdmin();
+  // const isAdmin = true;
+  console.log("Admin hook says:", isAdmin);
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
       {/* Top navbar with toggle on mobile */}
