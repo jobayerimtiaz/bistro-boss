@@ -57,8 +57,6 @@ const AllUsers = () => {
         <h2 className="text-sm md:text-3xl font-bold">
           Total Users: {users.length}
         </h2>
-        {/* <h2 className="text-sm md:text-3xl font-bold">Total Price:</h2>
-        <button className="btn bg-[#D1A054] text-white">Pay</button> */}
       </div>
       <div className="md:px-8">
         <table className="table md:p-8">

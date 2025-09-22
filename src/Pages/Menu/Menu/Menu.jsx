@@ -8,7 +8,7 @@ import pizzaBg from "../../../assets/menu/pizza-bg.jpg";
 import saladBg from "../../../assets/menu/salad-bg.jpg";
 import soupBg from "../../../assets/menu/soup-bg.jpg";
 const Menu = () => {
-  const [menu] = UseMenu();
+  const { menu } = UseMenu();
   // const popular = menu.filter((item) => item.category === "popular");
   const salad = menu.filter((item) => item.category === "salad");
   // const drinks = menu.filter((item) => item.category === "drinks");

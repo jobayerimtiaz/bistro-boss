@@ -4,7 +4,7 @@ import OrderTab from "../OrderTab/OrderTab";
 import { useNavigate, useParams } from "react-router-dom";
 
 const MenuTab = () => {
-  const [menu] = UseMenu();
+  const { menu } = UseMenu();
 
   //   const popular = menu.filter((item) => item.category === "popular");
   const salad = menu.filter((item) => item.category === "salad");

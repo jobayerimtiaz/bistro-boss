@@ -1,12 +1,14 @@
-import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router-dom";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
-import { FaUtensils } from "react-icons/fa";
 import UseAxiosPublic from "../../../Hooks/UseAxiosPublic";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { FaUtensils } from "react-icons/fa";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const AddItems = () => {
+const UpdateItem = () => {
+  const { name, recipe, price, _id } = useLoaderData();
   const {
     register,
     handleSubmit,
@@ -32,14 +34,14 @@ const AddItems = () => {
         recipe: data.recipe,
         image: res.data.data.display_url,
       };
-      const menuRes = await axiosSecure.post("/menu", menuItem);
+      const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
       console.log(menuRes.data);
-      if (menuRes.data.insertedId) {
+      if (menuRes.data.modifiedCount > 0) {
         //show success popup
         reset();
         Swal.fire({
           title: "Success!",
-          text: "Item has been inserted successfully.",
+          text: `${name} has been Updated successfully.`,
           icon: "success",
           confirmButtonText: "OK",
           confirmButtonColor: "#3085d6",
@@ -50,11 +52,12 @@ const AddItems = () => {
     }
     console.log("With image url", res.data);
   };
+
   return (
     <div>
       <SectionTitle
-        heading="Add an Item"
-        subHeading="What's New"
+        heading={"Update Item"}
+        subHeading={"Refresh Info"}
       ></SectionTitle>
       <div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -64,6 +67,7 @@ const AddItems = () => {
               Recipe name<span className="text-red-500">*</span>
             </label>
             <input
+              defaultValue={name}
               type="text"
               placeholder="Recipe name"
               {...register("name", {
@@ -88,7 +92,7 @@ const AddItems = () => {
                 {...register("category", { required: "Category is required" })}
                 className="w-full bg-white px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
               >
-                <option value="">Select Category</option>
+                <option value="">Select One</option>
                 <option value="salad">Salad</option>
                 <option value="pizza">Pizza</option>
                 <option value="soups">Soups</option>
@@ -109,6 +113,7 @@ const AddItems = () => {
               <input
                 type="number"
                 placeholder="Price"
+                defaultValue={price}
                 {...register("price", {
                   required: "Price is required",
                   valueAsNumber: true,
@@ -128,7 +133,8 @@ const AddItems = () => {
             </label>
             <textarea
               placeholder="Recipe Details"
-              {...register("details", { required: "Details are required" })}
+              defaultValue={recipe}
+              {...register("recipe", { required: "Details are required" })}
               className="w-full bg-white px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
               rows={4}
             ></textarea>
@@ -155,7 +161,7 @@ const AddItems = () => {
             type="submit"
             className="flex items-center gap-2 bg-yellow-700 text-white px-4 py-2 rounded-md hover:bg-yellow-800"
           >
-            Add Item <FaUtensils></FaUtensils>
+            Update Item <FaUtensils></FaUtensils>
           </button>
         </form>
       </div>
@@ -163,4 +169,4 @@ const AddItems = () => {
   );
 };
 
-export default AddItems;
+export default UpdateItem;
