@@ -25,6 +25,7 @@
     "react-rating": "^2.0.5",
     "react-router-dom": "^7.6.2",
     "react-simple-captcha": "^9.3.1",
+    "recharts": "^3.2.1",
     "stripe": "^18.5.0",
     "sweetalert2": "^11.22.2",
     "swiper": "^11.2.8",
