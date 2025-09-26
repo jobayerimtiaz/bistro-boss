@@ -29,7 +29,9 @@ const Cart = () => {
     });
   };
 
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const totalPrice = cart
+    .reduce((total, item) => total + item.price, 0)
+    .toFixed(2);
   return (
     <div className="bg-white py-12 ">
       <div className="flex justify-between px-2 md:px-8 py-4">
