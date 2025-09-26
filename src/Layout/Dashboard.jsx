@@ -116,7 +116,7 @@ const Dashboard = () => {
                     className={({ isActive }) =>
                       isActive ? "text-white" : "text-black"
                     }
-                    to="/dashboard/payment"
+                    to="/dashboard/paymentHistory"
                   >
                     <FaCreditCard></FaCreditCard> Payment History
                   </NavLink>

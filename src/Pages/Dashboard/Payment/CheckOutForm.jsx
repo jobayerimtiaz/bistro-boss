@@ -3,15 +3,18 @@ import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../../Hooks/UseAxiosSecure";
 import UseCart from "../../../Hooks/UseCart";
 import UseAuth from "../../../Hooks/UseAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const CheckOutForm = () => {
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const stripe = useStripe();
+  const navigate = useNavigate();
   const elements = useElements();
   const axiosSecure = UseAxiosSecure();
-  const [cart] = UseCart();
+  const [cart, refetch] = UseCart();
   const { user } = UseAuth();
   const totalPrice = cart
     .reduce((total, item) => total + item.price, 0)
@@ -19,12 +22,14 @@ const CheckOutForm = () => {
   console.log(totalPrice);
   useEffect(() => {
     const priceInCents = Math.round(totalPrice * 100);
-    axiosSecure
-      .post("/create-payment-intent", { price: priceInCents })
-      .then((res) => {
-        console.log(res.data.clientSecret);
-        setClientSecret(res.data.clientSecret);
-      });
+    if (totalPrice > 0) {
+      axiosSecure
+        .post("/create-payment-intent", { price: priceInCents })
+        .then((res) => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        });
+    }
   }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
@@ -83,6 +88,17 @@ const CheckOutForm = () => {
 
         const res = await axiosSecure.post("/payments", payment);
         console.log("payment saved", res.data);
+        refetch();
+        if (res.data?.paymentResult?.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Thank you for staying with us",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/dashboard/paymentHistory");
+        }
       }
     }
   };
