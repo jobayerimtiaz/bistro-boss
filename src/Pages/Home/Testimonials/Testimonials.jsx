@@ -12,12 +12,12 @@ const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/reviews")
+    fetch("https://bistro-boss-server-ashy-iota.vercel.app/reviews")
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
 
-  console.log(reviews);
+  // console.log(reviews);
 
   return (
     <div className="w-3/4 mx-auto py-10">

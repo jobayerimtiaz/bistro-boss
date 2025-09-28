@@ -20,10 +20,10 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     createUser(data.email, data.password).then((result) => {
-      const loggedUser = result.user;
-      console.log(loggedUser);
+      const _loggedUser = result.user;
+      // console.log(loggedUser);
       updateUserProfile(data.name, data.photoUrl).then(() => {
         const userInfo = {
           name: data.name,
@@ -31,7 +31,7 @@ const SignUp = () => {
         };
         axiosPublic.post("/users", userInfo).then((res) => {
           if (res.data.insertedId) {
-            console.log("User added to the database");
+            // console.log("User added to the database");
             reset();
             Swal.fire({
               title: "User Created Successfully!",

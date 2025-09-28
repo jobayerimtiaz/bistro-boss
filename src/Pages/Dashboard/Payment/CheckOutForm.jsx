@@ -19,14 +19,14 @@ const CheckOutForm = () => {
   const totalPrice = cart
     .reduce((total, item) => total + item.price, 0)
     .toFixed(2);
-  console.log(totalPrice);
+  // console.log(totalPrice);
   useEffect(() => {
     const priceInCents = Math.round(totalPrice * 100);
     if (totalPrice > 0) {
       axiosSecure
         .post("/create-payment-intent", { price: priceInCents })
         .then((res) => {
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -49,7 +49,7 @@ const CheckOutForm = () => {
     });
 
     if (error) {
-      console.log("[error]", error);
+      // console.log("[error]", error);
       setError(error.message);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
@@ -68,11 +68,11 @@ const CheckOutForm = () => {
         },
       });
     if (confirmError) {
-      console.log("confirm error");
+      // console.log("confirm error");
     } else {
-      console.log("payment intent", paymentIntent);
+      // console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
-        console.log("payment intent id", paymentIntent.id);
+        // console.log("payment intent id", paymentIntent.id);
         setTransactionId(paymentIntent.id);
 
         //save payment in the database
@@ -87,7 +87,7 @@ const CheckOutForm = () => {
         };
 
         const res = await axiosSecure.post("/payments", payment);
-        console.log("payment saved", res.data);
+        // console.log("payment saved", res.data);
         refetch();
         if (res.data?.paymentResult?.insertedId) {
           Swal.fire({
