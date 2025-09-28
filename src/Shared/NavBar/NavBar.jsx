@@ -22,7 +22,7 @@ const NavBar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-bold">
-          <span>Bistro Boss</span>
+          <span>Taste Trail</span>
           <div className="text-xl font-bold -mt-1">Restaurant</div>
         </div>
 
